@@ -9,6 +9,7 @@ import PageNotFound from "./pages/PageNotFound";
 import Logincompany from "./pages/Logincompany";
 import Logincity from "./pages/Logincity";
 import { Toaster } from "react-hot-toast";
+import CityDashboard from "./pages/CityDashboard";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,10 +29,11 @@ function App() {
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="login" element={<Login />} />
-            <Route path="logincity" element={<Logincity />} />
             <Route path="logincompany" element={<Logincompany />} />
-            <Route path="*" element={<PageNotFound />} />
+            <Route path="logincity" element={<Logincity />} />
           </Route>
+          <Route path="*" element={<PageNotFound />} />
+          <Route path="citydashboard" element={<CityDashboard />} />
         </Routes>
       </BrowserRouter>
       <Toaster
