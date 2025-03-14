@@ -19,20 +19,17 @@ export async function getTender(id) {
 
   if (error) {
     console.error(error);
-    throw new Error("Booking not found");
+    throw new Error("Tender not found");
   }
 
   return data;
 }
 
 export async function createEditTender(newTender, id) {
-  // 1. Create/edit cabin
   let query = supabase.from("tenders");
 
-  // A) CREATE
   if (!id) query = query.insert([{ ...newTender }]);
 
-  // B) EDIT
   if (id) query = query.update({ ...newTender }).eq("id", id);
 
   const { data, error } = await query.select().single();

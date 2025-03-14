@@ -1,14 +1,14 @@
+import { useForm } from "react-hook-form";
 import { useCreateTender } from "./useCreateTender";
 import { useEditTender } from "./useEditTender";
-import FormRow from "../ui/FormRow";
-import { useForm } from "react-hook-form";
+import FormRow from "../../ui/FormRow";
 
-function CreateTenderForm({ cabinToEdit = {} }) {
+function CreateTenderForm({ TenderToEdit = {}, setShowTable }) {
   const { isCreating, createTender } = useCreateTender();
   const { isEditing, editTender } = useEditTender();
   const isWorking = isCreating || isEditing;
 
-  const { id: editId, ...editValues } = cabinToEdit;
+  const { id: editId, ...editValues } = TenderToEdit;
   const isEditSession = Boolean(editId);
 
   const { register, handleSubmit, reset, formState } = useForm({
@@ -21,8 +21,9 @@ function CreateTenderForm({ cabinToEdit = {} }) {
       editTender(
         { newTenderData: { ...data }, id: editId },
         {
-          onSuccess: (data) => {
+          onSuccess: () => {
             reset();
+            setShowTable(false);
           },
         }
       );
@@ -30,8 +31,9 @@ function CreateTenderForm({ cabinToEdit = {} }) {
       createTender(
         { ...data },
         {
-          onSuccess: (data) => {
+          onSuccess: () => {
             reset();
+            setShowTable(false);
           },
         }
       );
@@ -44,7 +46,7 @@ function CreateTenderForm({ cabinToEdit = {} }) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit, onError)}
-      className="flex flex-col gap-6 text-xl  bg-neutral-100 p-6 rounded-xl w-5xl mx-auto"
+      className="flex flex-col gap-2 text-xl  bg-neutral-100 p-6 rounded-xl w-4xl mx-auto fixed  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
     >
       <FormRow label="Tender name: " error={errors?.name?.message}>
         <input
@@ -203,7 +205,9 @@ function CreateTenderForm({ cabinToEdit = {} }) {
 
       <div className="flex justify-around mt-4">
         <button
-          type="reset"
+          onClick={() => {
+            setShowTable(false);
+          }}
           className="bg--blue-100 border py-0.5 px-2 rounded-md  hover:bg-emerald-400 hover:text-blue-100 text-emerald-400"
         >
           Cancel

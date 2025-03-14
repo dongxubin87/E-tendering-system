@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteTender as deleteTenderApi } from "../services/apiTenders";
+import { deleteTender as deleteTenderApi } from "../../services/apiTenders";
 import toast from "react-hot-toast";
 
 export function useDeleteTender() {
@@ -8,8 +8,8 @@ export function useDeleteTender() {
   const { isLoading: isDeleting, mutate: deleteTender } = useMutation({
     mutationFn: deleteTenderApi,
     onSuccess: () => {
-      toast.success("Tender successfully deleted"),
-        queryClient.invalidateQueries({ queryKey: ["tenders"] });
+      toast.success("Tender successfully deleted");
+      queryClient.invalidateQueries({ queryKey: ["tenders"] });
     },
     onError: (err) => toast.error(err.message),
   });

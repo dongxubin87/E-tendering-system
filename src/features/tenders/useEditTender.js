@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createEditTender } from "../services/apiTenders";
+import { createEditTender } from "../../services/apiTenders";
 import { toast } from "react-hot-toast";
 
 export function useEditTender() {
